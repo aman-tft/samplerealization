@@ -1,0 +1,36 @@
+diff --git a/node_modules/react-native-chart-kit/dist/AbstractChart.js b/node_modules/react-native-chart-kit/dist/AbstractChart.js
+index ee88a84..9ab2eb2 100644
+--- a/node_modules/react-native-chart-kit/dist/AbstractChart.js
++++ b/node_modules/react-native-chart-kit/dist/AbstractChart.js
+@@ -158,19 +158,26 @@ var AbstractChart = /** @class */ (function (_super) {
+             var fillShadowGradientOpacity = config.hasOwnProperty("fillShadowGradientOpacity")
+                 ? config.fillShadowGradientOpacity
+                 : 0.1;
++            var fillShadowGradientEndOpacity = config.hasOwnProperty("fillShadowGradientEndOpacity")
++                ? config.fillShadowGradientEndOpacity
++                : 0;
+             return (<Defs>
+         <LinearGradient id="backgroundGradient" x1={0} y1={height} x2={width} y2={0} gradientUnits="userSpaceOnUse">
+           <Stop offset="0" stopColor={backgroundGradientFrom} stopOpacity={fromOpacity}/>
+           <Stop offset="1" stopColor={backgroundGradientTo} stopOpacity={toOpacity}/>
+         </LinearGradient>
+-        {useShadowColorFromDataset ? (data.map(function (dataset, index) { return (<LinearGradient id={"fillShadowGradient_" + index} key={"" + index} x1={0} y1={0} x2={0} y2={height} gradientUnits="userSpaceOnUse">
+-              <Stop offset="0" stopColor={dataset.color ? dataset.color(1.0) : fillShadowGradient} stopOpacity={fillShadowGradientOpacity}/>
++        {useShadowColorFromDataset ? (data.map(function (dataset, index) { 
++            var fillStartOpacity = dataset.fillShadowGradientOpacity !== undefined ? dataset.fillShadowGradientOpacity : fillShadowGradientOpacity;
++            var fillEndOpacity = dataset.fillShadowGradientEndOpacity !== undefined ? dataset.fillShadowGradientEndOpacity : fillShadowGradientEndOpacity;
++
++            return (<LinearGradient id={"fillShadowGradient_" + index} key={"" + index} x1={0} y1={0} x2={0} y2={height} gradientUnits="userSpaceOnUse">
++              <Stop offset="0" stopColor={dataset.color ? dataset.color(fillStartOpacity) : fillShadowGradient} stopOpacity={fillStartOpacity}/>
+               <Stop offset="1" stopColor={dataset.color
+-                ? dataset.color(fillShadowGradientOpacity)
+-                : fillShadowGradient} stopOpacity="0"/>
++                ? dataset.color(fillEndOpacity)
++                : fillShadowGradient} stopOpacity={fillEndOpacity}/>
+             </LinearGradient>); })) : (<LinearGradient id="fillShadowGradient" x1={0} y1={0} x2={0} y2={height} gradientUnits="userSpaceOnUse">
+             <Stop offset="0" stopColor={fillShadowGradient} stopOpacity={fillShadowGradientOpacity}/>
+-            <Stop offset="1" stopColor={fillShadowGradient} stopOpacity="0"/>
++            <Stop offset="1" stopColor={fillShadowGradient} stopOpacity={fillShadowGradientEndOpacity}/>
+           </LinearGradient>)}
+       </Defs>);
+         };

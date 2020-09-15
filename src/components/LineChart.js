@@ -44,6 +44,7 @@ class ResponsiveLineChart extends React.Component {
               color: () => labelColor,
               fillShadowGradient: chartAreaDefaultBackgroundColor,
               fillShadowGradientOpacity: 1,
+              fillShadowGradientEndOpacity: 1,
               backgroundGradientFrom: backgroundColor,
               backgroundGradientFromOpacity: 1,
               backgroundGradientTo: backgroundColor,
@@ -53,7 +54,7 @@ class ResponsiveLineChart extends React.Component {
             }}
             withInnerLines={false}
             withOuterLines={false}
-            getDotColor={() => colors.transparent}
+            withDots={false}
           />
         )}
       </View>
