@@ -33,6 +33,7 @@ class ResponsiveLineChart extends React.Component {
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: 4,
+          overflow: 'hidden',
         }}
         onLayout={this.containerOnLayout}>
         {containerHeight !== undefined && containerWidth !== undefined && (
@@ -55,6 +56,7 @@ class ResponsiveLineChart extends React.Component {
             withInnerLines={false}
             withOuterLines={false}
             withDots={false}
+            fromZero
           />
         )}
       </View>

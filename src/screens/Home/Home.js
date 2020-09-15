@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     backgroundColor: colors.white,
     ...shadows.cardShadow,
+    overflow: "hidden",
   },
   reportTitle: {
     paddingHorizontal: 24,
